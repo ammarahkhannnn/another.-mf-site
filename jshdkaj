@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday!</title>
+<style>
+  body { margin:0; font-family:Arial; background:#ffeef6; text-align:center; overflow-x:hidden; }
+  .screen { display:none; padding:40px 20px; }
+  .active { display:block; }
+  button { padding:12px 22px; font-size:1.1rem; border:none; border-radius:10px; cursor:pointer; background:#ff5fa2; color:white; }
+  button:hover { background:#ff3f90; }
+  .heart { position:absolute; color:#ff5fa2; font-size:24px; animation: floatUp 4s linear forwards; }
+  @keyframes floatUp { from { transform:translateY(0); opacity:1;} to { transform:translateY(-200px); opacity:0;} }
+</style>
+</head>
+<body>
+
+<!-- Screen 1: Cute Welcome Question -->
+<div id="screen1" class="screen active">
+  <h1>Hey bestie! 🎉</h1>
+  <p>I made something special for your birthday... 💖</p>
+  <p>But first, are you ready?</p>
+  <button onclick="nextScreen(2)">Yessss! 💕</button>
+</div>
+
+<!-- Screen 2: Silly Choice Game (Like Valentine Sites) -->
+<div id="screen2" class="screen">
+  <h2>Do you want your birthday surprise? 🎁</h2>
+  <div>
+    <button onclick="nextScreen(3)">Yes!</button>
+    <button id="noBtn" onmouseover="moveButton()">No 😭</button>
+  </div>
+</div>
+
+<!-- Screen 3: Final Birthday Message + Confetti Hearts -->
+<div id="screen3" class="screen">
+  <h1>HAPPY BIRTHDAY 🎂🎉</h1>
+  <h2>[Friend’s Name] 💖</h2>
+  <p>You are amazing, loved, and the best human ever. I’m so lucky to have you! 🎀</p>
+  <p>Here’s to more memories, more laughter, and more chaos together 😂💞</p>
+  <button onclick="startHearts()">Click for a surprise 💗</button>
+</div>
+
+<script>
+function nextScreen(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen'+n).classList.add('active');
+}
+
+function moveButton(){
+  const btn = document.getElementById('noBtn');
+  const x = Math.random() * 300 - 150;
+  const y = Math.random() * 300 - 150;
+  btn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function startHearts(){
+  setInterval(()=>{
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.top = window.innerHeight + 'px';
+    document.body.appendChild(heart);
+    setTimeout(()=> heart.remove(), 4000);
+  }, 200);
+}
+</script>
+
+</body>
+</html>
